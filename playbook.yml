@@ -1,0 +1,23 @@
+---
+- hosts: all
+  become: yes
+  become_user: root
+
+  tasks:
+
+    - name: install git
+      yum:
+        name: git
+        state: latest
+      
+
+    - name: clone repo camel
+      git:
+        repo: 'https://github.com/apache/camel.git'
+        clone: yes
+        dest: /home/vagrant/camel
+
+    - name: git status
+      shell: git status
+      args:
+        chdir: /home/vagrant/camel
